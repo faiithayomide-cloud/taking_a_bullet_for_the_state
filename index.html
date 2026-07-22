@@ -1,326 +1,399 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pledge Form - Taking a Bullet for the State</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <meta name="description" content="Submit a pledge for Taking a Bullet for the State and view the live pledge register.">
+  <title>Pledge Register | Taking a Bullet for the State</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1e293b;
-      --primary-hover: #0f172a;
-      --brand-red: #dc2626;
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --surface-subtle: #f1f5f9;
-      --border: #e2e8f0;
-      --text: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #94a3b8;
-      --success: #16a34a;
-      --radius: 8px;
+      --ink: #201b1a;
+      --muted: #716865;
+      --paper: #f6f0e8;
+      --card: rgba(255, 252, 247, 0.91);
+      --red: #b42326;
+      --red-dark: #85191c;
+      --line: #d9cec2;
+      --success: #287052;
+      --shadow: 0 28px 70px rgba(75, 42, 35, 0.14);
     }
 
     * { box-sizing: border-box; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      min-height: 100vh;
       margin: 0;
-      padding: 1.5rem 1rem;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(180, 35, 38, 0.12), transparent 27rem),
+        radial-gradient(circle at 92% 80%, rgba(121, 83, 53, 0.12), transparent 25rem),
+        var(--paper);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+      align-items: end;
+      gap: 48px;
+      margin-bottom: 36px;
+      animation: rise 0.65s ease both;
+    }
+
+    .eyebrow {
       display: flex;
-      justify-content: center;
-    }
-
-    .form-card {
-      width: 100%;
-      max-width: 520px;
-      background: var(--surface);
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      padding: 2rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    .header { text-align: center; margin-bottom: 1.5rem; }
-    .header img {
-      width: 100px;
-      height: auto;
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      margin-bottom: 1rem;
-    }
-
-    /* Redesigned Title Typography */
-    .header .main-title { 
-      font-size: 1.65rem; 
-      font-weight: 800; 
-      color: var(--brand-red); 
-      margin: 0 0 0.25rem; 
-      line-height: 1.25;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-    }
-    .header .sub-title { 
-      font-size: 0.9rem; 
-      font-weight: 500; 
-      color: var(--text-secondary); 
-      margin: 0 0 0.5rem; 
-      text-transform: capitalize;
-    }
-    .header .author { 
-      font-size: 0.85rem; 
-      color: var(--text-secondary); 
-      margin: 0 0 0.5rem; 
-      font-style: italic; 
-    }
-    .header .meta { 
-      font-size: 0.8rem; 
-      color: var(--text-muted); 
-      margin: 0 0 1rem; 
-      line-height: 1.4; 
-    }
-
-    /* Live Counter Banner */
-    .counter-badge {
-      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border);
-      padding: 0.4rem 0.85rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--primary);
-    }
-    .counter-badge i { color: var(--brand-red); font-size: 1rem; }
-
-    .grid { display: grid; gap: 1rem; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-    @media (max-width: 480px) {
-      .grid-2 { grid-template-columns: 1fr; }
+      gap: 10px;
+      margin: 0 0 18px;
+      color: var(--red);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
 
-    label { font-size: 0.825rem; font-weight: 500; color: var(--text-secondary); display: block; margin-bottom: 0.25rem; }
+    .eyebrow::before { content: ""; width: 34px; height: 2px; background: currentColor; }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      color: var(--red);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.85rem, 7vw, 6.4rem);
+      line-height: 0.9;
+      letter-spacing: -0.055em;
+    }
+
+    h1 em { display: block; color: var(--red); font-weight: 700; }
+
+    .event-note {
+      margin: 0 0 7px;
+      padding: 22px 0 4px 24px;
+      border-left: 1px solid var(--red);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .event-note strong { display: block; color: var(--ink); font-size: 1.05rem; }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(143, 115, 101, 0.28);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      animation: rise 0.7s 0.08s ease both;
+    }
+
+    .form-panel { padding: clamp(24px, 5vw, 48px); }
+    .register-panel { padding: 28px; animation-delay: 0.16s; }
+
+    .panel-number {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      color: rgba(180, 35, 38, 0.09);
+      font-family: "Playfair Display", serif;
+      font-size: 5.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .section-kicker { margin: 0 0 8px; color: var(--red); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+    h2 { position: relative; margin: 0; font-family: "Playfair Display", serif; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+    .section-copy { position: relative; margin: 10px 0 28px; color: var(--muted); line-height: 1.65; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .field-wide { grid-column: 1 / -1; }
+    label { display: block; margin-bottom: 8px; color: #554b48; font-size: 0.8rem; font-weight: 700; }
+    label span { color: var(--muted); font-weight: 400; }
+
     input {
       width: 100%;
-      padding: 0.625rem 0.75rem;
-      font-size: 0.875rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      border-radius: 13px;
       outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-    input:focus {
-      border-color: var(--brand-red);
-      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--ink);
+      font: inherit;
+      padding: 14px 15px;
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
     }
 
+    input:hover { border-color: #bca99d; }
+    input:focus { border-color: var(--red); box-shadow: 0 0 0 4px rgba(180, 35, 38, 0.1); transform: translateY(-1px); }
+    input::placeholder { color: #a99e99; }
+
+    .submit-row { display: flex; align-items: center; gap: 16px; margin-top: 26px; }
     button {
-      width: 100%;
-      background: var(--brand-red);
-      color: #fff;
-      border: none;
-      padding: 0.75rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      border-radius: var(--radius);
+      min-width: 190px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fffaf4;
       cursor: pointer;
-      transition: background-color 0.15s ease;
-      margin-top: 0.5rem;
+      font: inherit;
+      font-weight: 700;
+      padding: 15px 22px;
+      box-shadow: 0 12px 24px rgba(180, 35, 38, 0.2);
+      transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
     }
-    button:hover { background: #b91c1c; }
 
-    .error-msg { font-size: 0.75rem; color: var(--brand-red); display: none; margin: 0; }
-    
-    .success-view { text-align: center; padding: 2rem 0; display: none; }
-    .success-view i { font-size: 2.5rem; color: var(--success); }
-    .success-view h3 { font-size: 1.1rem; margin: 0.5rem 0 0.25rem; }
-    .success-view p { font-size: 0.85rem; color: var(--text-secondary); margin: 0; }
+    button:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 16px 30px rgba(180, 35, 38, 0.27); }
+    button:active { transform: translateY(0); }
+    button:focus-visible { outline: 3px solid rgba(180, 35, 38, 0.3); outline-offset: 3px; }
+    button:disabled { cursor: wait; opacity: 0.7; transform: none; }
 
-    .register-section { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
-    .register-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
-    .register-header h2 { font-size: 0.95rem; font-weight: 600; margin: 0; }
-    .register-header span { font-size: 0.75rem; color: var(--text-secondary); }
+    .privacy-note { color: var(--muted); font-size: 0.74rem; line-height: 1.45; }
+    .message { display: none; margin: 18px 0 0; border-radius: 12px; padding: 12px 14px; font-size: 0.85rem; }
+    .message.error { display: block; background: #fce8e6; color: #8f1d20; }
+    .message.success { display: block; background: #e2f1e9; color: #205a42; }
 
-    .register-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 24px 0; }
+    .stat { border-top: 2px solid var(--ink); padding-top: 10px; }
+    .stat strong { display: block; font-family: "Playfair Display", serif; font-size: 1.45rem; }
+    .stat span { color: var(--muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .register-list { display: grid; gap: 10px; }
     .register-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.825rem;
-      padding: 0.625rem 0.75rem;
-      background: var(--surface-subtle);
-      border-radius: var(--radius);
+      display: grid;
+      grid-template-columns: 38px 1fr auto;
+      align-items: center;
+      gap: 11px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      padding: 11px;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
     }
-    .empty-msg { font-size: 0.825rem; color: var(--text-muted); display: none; margin: 0; text-align: center; padding: 1rem 0; }
+    .register-item:hover { border-color: var(--line); background: rgba(255,255,255,0.62); transform: translateX(3px); }
+    .avatar { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 50%; background: #ead8cf; color: var(--red); font-family: "Playfair Display", serif; font-weight: 700; }
+    .person strong, .person small { display: block; }
+    .person strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.86rem; }
+    .person small { margin-top: 2px; color: var(--muted); font-size: 0.7rem; }
+    .pledge-value { color: var(--red); font-size: 0.74rem; font-weight: 700; text-align: right; }
+    .empty-state { padding: 34px 12px; color: var(--muted); text-align: center; line-height: 1.6; }
+    .empty-state strong { display: block; color: var(--ink); font-family: "Playfair Display", serif; font-size: 1.25rem; }
+    .skeleton { height: 61px; border-radius: 14px; background: linear-gradient(90deg, #eee4db 25%, #f8f2ec 50%, #eee4db 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; }
+
+    @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    @media (max-width: 820px) {
+      .page-shell { padding-top: 34px; }
+      .hero, .content-grid { grid-template-columns: 1fr; }
+      .hero { gap: 24px; }
+      .event-note { max-width: 560px; }
+    }
+
+    @media (max-width: 520px) {
+      .page-shell { width: min(100% - 20px, 1120px); }
+      .form-grid { grid-template-columns: 1fr; }
+      .field-wide { grid-column: auto; }
+      .submit-row { align-items: stretch; flex-direction: column; }
+      button { width: 100%; }
+      .form-panel, .register-panel { padding: 22px; border-radius: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
-
-<div class="form-card">
-  <div class="header">
-    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCADUASwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT纤维/9oADAMBAAIRAxEAPwD6pooooAKKKKACiiigA0A4/wD1UUUUAFFFFABRRRQAUUUUAf/Z" alt="Book Cover">
-    <h1 class="main-title">Taking a Bullet for the State</h1>
-    <div class="sub-title">Make your pledge count</div>
-    <p class="author">by Mariam Yaro</p>
-    <p class="meta">National Assembly Library Trust Fund Complex, Three Arms Zone, FCT Abuja<br>&middot; 23 July 2026, 10:00 AM &middot;</p>
-    
-    <!-- Top Pledge Counter -->
-    <div class="counter-badge">
-      <i class="ti ti-heart-handshake"></i>
-      <span id="header-counter">0 Pledges Made So Far</span>
-    </div>
-  </div>
-
-  <div id="form-view">
-    <div class="grid">
+  <main class="page-shell">
+    <header class="hero">
       <div>
-        <label for="p-name">Full name *</label>
-        <input type="text" id="p-name" placeholder="e.g. Dr. John Doe">
+        <p class="eyebrow">Official pledge register</p>
+        <h1>Taking a Bullet <em>for the State</em></h1>
       </div>
-      <div>
-        <label for="p-org">Organisation / office (optional)</label>
-        <input type="text" id="p-org" placeholder="e.g. Ministry of Finance">
-      </div>
-      <div class="grid-2">
-        <div>
-          <label for="p-phone">Phone number</label>
-          <input type="tel" id="p-phone" placeholder="080...">
+      <p class="event-note">
+        <strong>Book presentation &amp; public pledge</strong>
+        Shehu Musa Yar'Adua Centre, Abuja<br>
+        23 July 2026 · 10:00 AM
+      </p>
+    </header>
+
+    <div class="content-grid">
+      <section class="panel form-panel" aria-labelledby="pledge-heading">
+        <span class="panel-number" aria-hidden="true">01</span>
+        <p class="section-kicker">Make your commitment</p>
+        <h2 id="pledge-heading">Add your pledge</h2>
+        <p class="section-copy">Your pledge is saved securely and the public register updates immediately.</p>
+
+        <form id="pledge-form" novalidate>
+          <div class="form-grid">
+            <div class="field-wide">
+              <label for="p-name">Full name *</label>
+              <input type="text" id="p-name" name="name" autocomplete="name" maxlength="120" placeholder="Your full name" required>
+            </div>
+            <div class="field-wide">
+              <label for="p-org">Organisation or office <span>(optional)</span></label>
+              <input type="text" id="p-org" name="organization" autocomplete="organization" maxlength="160" placeholder="Ministry, company, or office">
+            </div>
+            <div>
+              <label for="p-phone">Phone number <span>(private)</span></label>
+              <input type="tel" id="p-phone" name="phone" autocomplete="tel" maxlength="40" placeholder="080…">
+            </div>
+            <div>
+              <label for="p-email">Email <span>(private)</span></label>
+              <input type="email" id="p-email" name="email" autocomplete="email" maxlength="160" placeholder="name@example.com">
+            </div>
+            <div>
+              <label for="p-copies">Copies pledged</label>
+              <input type="number" min="0" max="100000" step="1" id="p-copies" name="copies" inputmode="numeric" placeholder="0">
+            </div>
+            <div>
+              <label for="p-amount">Amount pledged (₦)</label>
+              <input type="number" min="0" max="1000000000" step="500" id="p-amount" name="amount" inputmode="numeric" placeholder="0">
+            </div>
+          </div>
+          <div class="submit-row">
+            <button id="submit-btn" type="submit">Record my pledge</button>
+            <span class="privacy-note">Only your name, organisation, and pledge appear publicly. Contact details stay private.</span>
+          </div>
+          <p id="form-message" class="message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <aside class="panel register-panel" aria-labelledby="register-heading">
+        <p class="section-kicker">Live activity</p>
+        <h2 id="register-heading">Recent pledges</h2>
+        <p class="section-copy">New sign-ups appear here automatically, so you can see each successful submission.</p>
+        <div class="stats" aria-label="Pledge totals">
+          <div class="stat"><strong id="total-pledges">—</strong><span>Pledges</span></div>
+          <div class="stat"><strong id="total-copies">—</strong><span>Copies</span></div>
+          <div class="stat"><strong id="total-amount">—</strong><span>Naira</span></div>
         </div>
-        <div>
-          <label for="p-email">Email (optional)</label>
-          <input type="email" id="p-email" placeholder="name@email.com">
+        <div id="register-list" class="register-list" aria-live="polite">
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
         </div>
-      </div>
-      <div class="grid-2">
-        <div>
-          <label for="p-copies">Copies pledged</label>
-          <input type="number" min="0" step="1" id="p-copies" placeholder="0">
-        </div>
-        <div>
-          <label for="p-amount">Amount pledged (₦)</label>
-          <input type="number" min="0" step="500" id="p-amount" placeholder="0">
-        </div>
-      </div>
-      <button id="submit-btn" type="button">Submit Pledge</button>
-      <p id="form-error" class="error-msg">Please enter your name and at least a copy count or pledge amount.</p>
+      </aside>
     </div>
-  </div>
+  </main>
 
-  <div id="success-view" class="success-view">
-    <i class="ti ti-circle-check"></i>
-    <h3>Pledge recorded, thank you.</h3>
-    <p>Your pledge has been added to the register below.</p>
-  </div>
+  <script>
+    const form = document.getElementById('pledge-form');
+    const submitButton = document.getElementById('submit-btn');
+    const message = document.getElementById('form-message');
+    const registerList = document.getElementById('register-list');
 
-  <div class="register-section">
-    <div class="register-header">
-      <h2>Pledge register</h2>
-      <span id="totals"></span>
-    </div>
-    <div id="register-list" class="register-list"></div>
-    <p id="register-empty" class="empty-msg">No pledges yet, be the first.</p>
-  </div>
-</div>
-
-<script>
-async function loadRegister() {
-  const listEl = document.getElementById('register-list');
-  const emptyEl = document.getElementById('register-empty');
-  const totalsEl = document.getElementById('totals');
-  const headerCounterEl = document.getElementById('header-counter');
-  let keys = [];
-
-  try {
-    if (window.storage) {
-      const r = await window.storage.list('pledge:', true);
-      keys = (r && r.keys) || [];
+    function escapeHtml(value) {
+      const element = document.createElement('div');
+      element.textContent = value == null ? '' : String(value);
+      return element.innerHTML;
     }
-  } catch (e) { keys = []; }
 
-  if (keys.length === 0) {
-    listEl.innerHTML = '';
-    emptyEl.style.display = 'block';
-    totalsEl.textContent = '';
-    headerCounterEl.textContent = '0 Pledges Made So Far';
-    return;
-  }
-  emptyEl.style.display = 'none';
-
-  const entries = [];
-  for (const k of keys) {
-    try {
-      const res = await window.storage.get(k, true);
-      if (res && res.value) entries.push(JSON.parse(res.value));
-    } catch (e) {}
-  }
-  entries.sort((a, b) => (b.ts || 0) - (a.ts || 0));
-
-  let totalAmount = 0;
-  let totalCopies = 0;
-  listEl.innerHTML = entries.map(function(e) {
-    totalAmount += Number(e.amount || 0);
-    totalCopies += Number(e.copies || 0);
-    const parts = [];
-    if (e.copies) parts.push(e.copies + ' cop' + (e.copies == 1 ? 'y' : 'ies'));
-    if (e.amount) parts.push('₦' + Number(e.amount).toLocaleString());
-    return '<div class="register-item">' +
-      '<span>' + escapeHtml(e.name) + '</span>' +
-      '<span style="color:var(--text-secondary);">' + escapeHtml(parts.join(' · ')) + '</span>' +
-      '</div>';
-  }).join('');
-
-  // Update register summary
-  totalsEl.textContent = entries.length + ' pledge' + (entries.length === 1 ? '' : 's') +
-    (totalCopies ? ', ' + totalCopies + ' copies' : '') +
-    (totalAmount ? ', ₦' + totalAmount.toLocaleString() : '');
-
-  // Update top pledge counter
-  headerCounterEl.textContent = entries.length + ' Pledge' + (entries.length === 1 ? '' : 's') + ' Made So Far';
-}
-
-function escapeHtml(s) {
-  const d = document.createElement('div');
-  d.textContent = s == null ? '' : String(s);
-  return d.innerHTML;
-}
-
-document.getElementById('submit-btn').addEventListener('click', async function() {
-  const name = document.getElementById('p-name').value.trim();
-  const org = document.getElementById('p-org').value.trim();
-  const phone = document.getElementById('p-phone').value.trim();
-  const email = document.getElementById('p-email').value.trim();
-  const copies = parseInt(document.getElementById('p-copies').value, 10) || 0;
-  const amount = parseFloat(document.getElementById('p-amount').value) || 0;
-  const errorEl = document.getElementById('form-error');
-
-  if (!name || (!copies && !amount)) {
-    errorEl.style.display = 'block';
-    return;
-  }
-  errorEl.style.display = 'none';
-
-  const entry = { name: name, org: org, phone: phone, email: email, copies: copies, amount: amount, ts: Date.now() };
-  const key = 'pledge:' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
-  
-  try {
-    if (window.storage) {
-      await window.storage.set(key, JSON.stringify(entry), true);
+    function formatAmount(value) {
+      return new Intl.NumberFormat('en-NG', { maximumFractionDigits: 0 }).format(Number(value) || 0);
     }
-  } catch (e) {
-    errorEl.textContent = 'Something went wrong saving your pledge, please try again.';
-    errorEl.style.display = 'block';
-    return;
-  }
 
-  document.getElementById('form-view').style.display = 'none';
-  document.getElementById('success-view').style.display = 'block';
-  loadRegister();
-});
+    function entryValue(entry) {
+      const values = [];
+      if (entry.copies) values.push(entry.copies + (entry.copies === 1 ? ' copy' : ' copies'));
+      if (entry.amount) values.push('₦' + formatAmount(entry.amount));
+      return values.join(' · ');
+    }
 
-loadRegister();
-</script>
+    function renderRegister(data) {
+      const entries = data.entries || [];
+      const totals = data.totals || {};
+      document.getElementById('total-pledges').textContent = formatAmount(totals.pledges);
+      document.getElementById('total-copies').textContent = formatAmount(totals.copies);
+      document.getElementById('total-amount').textContent = formatAmount(totals.amount);
+
+      if (!entries.length) {
+        registerList.innerHTML = '<div class="empty-state"><strong>No pledges yet</strong>Be the first name in the register.</div>';
+        return;
+      }
+
+      registerList.innerHTML = entries.map(function (entry) {
+        const initial = escapeHtml(entry.name.charAt(0).toUpperCase());
+        const detail = entry.organization ? escapeHtml(entry.organization) : 'Individual pledge';
+        return '<article class="register-item">' +
+          '<span class="avatar" aria-hidden="true">' + initial + '</span>' +
+          '<span class="person"><strong>' + escapeHtml(entry.name) + '</strong><small>' + detail + '</small></span>' +
+          '<span class="pledge-value">' + escapeHtml(entryValue(entry)) + '</span>' +
+          '</article>';
+      }).join('');
+    }
+
+    async function loadRegister() {
+      try {
+        const response = await fetch('/api/pledges', { headers: { accept: 'application/json' } });
+        if (!response.ok) throw new Error('Unable to load pledges.');
+        renderRegister(await response.json());
+      } catch {
+        registerList.innerHTML = '<div class="empty-state"><strong>Register unavailable</strong>Please refresh to try again.</div>';
+      }
+    }
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+
+      if (!payload.name.trim() || (!Number(payload.copies) && !Number(payload.amount))) {
+        message.className = 'message error';
+        message.textContent = 'Add your name and at least one copy or a pledge amount.';
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Recording…';
+      message.className = 'message';
+
+      try {
+        const response = await fetch('/api/pledges', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', accept: 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Unable to save your pledge.');
+
+        form.reset();
+        message.className = 'message success';
+        message.textContent = 'Pledge recorded. Your name now appears in the live register.';
+        await loadRegister();
+        document.getElementById('register-heading').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (error) {
+        message.className = 'message error';
+        message.textContent = error.message || 'Something went wrong. Please try again.';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Record my pledge';
+      }
+    });
+
+    loadRegister();
+  </script>
 </body>
 </html>
